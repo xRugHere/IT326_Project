@@ -9,20 +9,42 @@
 //or if you have a better way of doing it
 
 //login page requires, textbox creation, background manipulation, art?, make new account
-
+//check the database of user logins if it contains username that uses password
+function checkDataBase(username :string, password :string): bool{
+    //temp method
+    return false;
+}
+//get input via textboxes , working out logic first cause I need to learn the texbox creation and input catching 
+username :string;
+password :string;
+if(checkDataBase(username,password)){
 //if login sucessful -> go to mainPage
-
-//if login failed(info not in database)-> error messege tell user "invaild username or password"
-
+} else {
+//if login failed(info not in database)-> messege tell user "invaild username or password"
+}
 //below login should be create account button (clicked)-> makes create account textboxes appear
 //need texbox for username, password, confirm password(do we want username to be an email??)
 
-
+//for the purpose of displaying error messeges on the create account could combine with the other error messege 
+//from the signing in if we wanted?
+function errorMessege(): void{
+    if(req1 == false){
+        //user does not meet the standards of our password 
+    } else if (req2 == false){
+        //user does not have pw1 and pw2 matching
+    } else if (req3 == false){
+        //username is already within the system need to change it 
+    }
+}
 //confirm button -> checks if username is taken -> checks that password fits requirements? -> checks that both password boxes match
+req1:bool = false; req2:bool = false; req3:bool = true;
+if(req1=passwordReq(pw1)&&req2=(pw1 === pw2)&& !(req3=checkDataBase(username))){
 //->success-> add information into the data base takes user back to the login page
-//prob dif order so we don't waste resources checking a data base for the passwords not to match
+    loginPageDisplay();
+}else{
 // -> fail error messege relavant to the infomation that is not correct
-
+    errorMessege(req1,req2,req3);
+}
 
 //mainPage displays only after login is succesful
 
