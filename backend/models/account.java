@@ -6,11 +6,10 @@
 
 class account{
 //Att__________________________________________________________________________________
-accountID:String = "-1";
-username:String = "nobody";
-email:String = "nobody";
-//does this need to be a string
-friendCode:String = "-1";
+int accountID = "-1";
+String username = "nobody";
+String email = "nobody";
+int friendCode = "-1";
 
 //constuctors_________________________________________________________________________
 //should only be called when we are creating a new account
@@ -29,24 +28,34 @@ private account(username:String, email:String,password:string){
 
 //methods_____________________________________________________________________________
     //signing into an account, should this return a boolean if it fails?
-    function signIn():void{
+    public void signIn(String user, String password) throws{
+        if(){
+            if(){
+
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }else { 
+            //we can change this to be a custom error later
+            throw new IllegalArgumentException();
+        }
 
     }
 
     //signing out of an account
-    function signOut():void{
+    public void signOut(){
 
     }
 
 
     //open the challenge page?
-    function getProgress():void{
+    public void getProgress(){
 
 
     }
 
     //display the ChallengeList?
-    function getChallengeList():void{
+    public void getChallengeList():void{
 
     }
 
