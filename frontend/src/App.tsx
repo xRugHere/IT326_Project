@@ -1,4 +1,5 @@
 import ExampleComponent from './components/ExampleComponent'
+import LoginBox from './components/LoginBox'
 import big1 from './assets/images/big1.jpeg'
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <>
       <p>Boiler plate for project w/ example component</p>
       <ExampleComponent image={big1} alt="Example image" />
+      <LoginBox />
     </>
   )
 }
