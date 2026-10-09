@@ -5,13 +5,12 @@
 */
 
 class account{
-
-
 //Att__________________________________________________________________________________
-accountID:String;
-username:String;
-email:String;
-friendCode:String;
+accountID:String = "-1";
+username:String = "nobody";
+email:String = "nobody";
+//does this need to be a string
+friendCode:String = "-1";
 
 //constuctors_________________________________________________________________________
 //should only be called when we are creating a new account
@@ -29,26 +28,26 @@ private account(username:String, email:String,password:string){
 }
 
 //methods_____________________________________________________________________________
-//signing into an account, should this return a boolean if it fails?
-function signIn():void{
+    //signing into an account, should this return a boolean if it fails?
+    function signIn():void{
 
-}
+    }
 
-//signing out of an account
-function signOut():void{
+    //signing out of an account
+    function signOut():void{
 
-}
-
-
-//open the challenge page?
-function getProgress():void{
+    }
 
 
-}
+    //open the challenge page?
+    function getProgress():void{
 
-//display the ChallengeList?
-function getChallengeList():void{
 
-}
+    }
+
+    //display the ChallengeList?
+    function getChallengeList():void{
+
+    }
 
 }
