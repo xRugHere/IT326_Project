@@ -12,6 +12,8 @@ workoutID:String;
 nameW:String;
 exercises:List <exercise>;
 
+//constuctors_________________________________________________________________________
+
 //methods_____________________________________________________________________________
 
 //adding an exercise to to the list of exercises for this workout

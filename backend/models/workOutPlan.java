@@ -5,12 +5,13 @@
 */
 
 
-
-
+class workOutPlan{
 //Att__________________________________________________________________________________
 planID:String;
 goal:String;
 workouts:List <Workout>;
+
+//constuctors_________________________________________________________________________
 
 //methods_____________________________________________________________________________
 
@@ -32,4 +33,5 @@ return workouts;
 //changes the status of a workout to be completed
 function completeWorkout():void{
 
+}
 }

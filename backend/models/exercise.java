@@ -16,7 +16,7 @@ unit:String;
 //methods_____________________________________________________________________________
 
 //getter for the name of the exercise (ie pushups jumping jacks ...etc)
-unction getName():String{
+function getName():String{
 return nameE;
 }
 
