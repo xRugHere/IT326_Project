@@ -1,75 +1,91 @@
 // really basic login component
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from 'firebase/auth'
-import type { User } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
+import PixelPanel from './pixel/PixelPanel'
+import PixelButton from './pixel/PixelButton'
 
 function LoginBox() {
+  const navigate = useNavigate()
+  const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState<User | null>(null)
+  const [confirm, setConfirm] = useState('')
   const [error, setError] = useState('')
+  const isSignup = mode === 'signup'
 
-  useEffect(() => onAuthStateChanged(auth, setUser), [])
-
-  async function handleLogin(e: FormEvent) {
-    e.preventDefault()
+  function switchMode(next: 'login' | 'signup') {
+    setMode(next)
     setError('')
-    try {
-      await signInWithEmailAndPassword(auth, email, password)
-    } catch (err) {
-      setError((err as Error).message)
-    }
   }
 
   // error returns firebase error message, if any occurs during sign up (could be weak password, email already in use, etc.)
-  async function handleSignUp() {
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
     setError('')
+    if (isSignup && password !== confirm) {
+      setError('Passwords do not match')
+      return
+    }
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      if (isSignup) await createUserWithEmailAndPassword(auth, email, password)
+      else await signInWithEmailAndPassword(auth, email, password)
+      navigate('/main')
     } catch (err) {
       setError((err as Error).message)
     }
   }
 
-  if (user) {
-    return (
-      <div>
-        <p>Logged in as {user.email}</p>
-        <button onClick={() => signOut(auth)}>Log Out</button>
-      </div>
-    )
-  }
-
   return (
-    <form onSubmit={handleLogin}>
-      <div>
-        <label>
-          Email:{' '}
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password:{' '}
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+    <PixelPanel className="login-box">
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="login-tabs">
+          <PixelButton
+            label="LOG IN"
+            asset="loginTab"
+            variant={isSignup ? 'sunken' : 'accent'}
+            active={!isSignup}
+            onClick={() => switchMode('login')}
           />
-        </label>
-      </div>
-      <button type="submit">Log In</button>
-      <button type="button" onClick={handleSignUp}>Sign Up</button>
-      {error && <p>{error}</p>}
-    </form>
+          <PixelButton
+            label="SIGN UP"
+            asset="signupTab"
+            variant={isSignup ? 'accent' : 'sunken'}
+            active={isSignup}
+            onClick={() => switchMode('signup')}
+          />
+        </div>
+
+        <div className="px-field">
+          <label htmlFor="bf-email" className="px-label">EMAIL</label>
+          <input id="bf-email" className="px-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+
+        <div className="px-field">
+          <label htmlFor="bf-password" className="px-label">PASSWORD</label>
+          <input id="bf-password" className="px-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+
+        {isSignup && (
+          <div className="px-field px-fade-in">
+            <label htmlFor="bf-confirm" className="px-label">CONFIRM PASSWORD</label>
+            <input id="bf-confirm" className="px-input" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+          </div>
+        )}
+
+        {error && <p className="px-error">{error}</p>}
+
+        <PixelButton
+          type="submit"
+          label={isSignup ? 'CREATE ACCOUNT' : 'LOG IN'}
+          asset={isSignup ? 'signupButton' : 'loginButton'}
+          variant="primary"
+        />
+      </form>
+    </PixelPanel>
   )
 }
 
