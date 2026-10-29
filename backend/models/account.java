@@ -10,12 +10,12 @@ int accountID = "-1";
 String username = "nobody";
 String email = "nobody";
 int friendCode = "-1";
-
+String password = "passwordddddd";
 //constuctors_________________________________________________________________________
 //should only be called when we are creating a new account
 private account(username:String, email:String,password:string){
     //might use a differnt more method of account creation like discribed in class however for now this is a temp
-    if(!(checkDataBase(username))){
+    if(checkDataBase(username) == null){
         if(passwordVaild(password)){
             this.username = username;
             this.email = email;
@@ -27,12 +27,18 @@ private account(username:String, email:String,password:string){
 }
 
 //methods_____________________________________________________________________________
-    //signing into an account, should this return a boolean if it fails?
-    public void signIn(String user, String password) throws{
-        if(){
-            if(){
-
+    
+    //signing into an account checks if the account exists in the database then checks if the password matches the one on that account
+    //if the passwords match we set the account to this current users info 
+    //need to change to have signIn in a user operations class and make a new instance of account after the sign in is successful
+    public void signIn(String user, String password) throws IllegalArgumentException{
+        account* temp = null;
+        if(!((temp = checkDataBase(user)) == null)){
+            if(temp.password.equals(password)){
+                //might need to make a custom setter for this 
+                this = temp;
             } else {
+                //if password doesn't match throw a error
                 throw new IllegalArgumentException();
             }
         }else { 
