@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * CONTROLLER layer: maps HTTP requests to handler calls and picks the status code.
+ * CONTROLLER layer: maps HTTP requests to handler calls and picks the status code.  
+ * 
  * It holds no validation or business logic.
  *
  * Every request needs the header "Authorization: Bearer <Firebase ID token>".
