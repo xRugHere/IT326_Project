@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import NavBar, { navTabs } from '../components/NavBar'
 import PixelPanel from '../components/pixel/PixelPanel'
+import WorkoutsTab from '../components/workouts/WorkoutsTab'
 
 function MainPage() {
   const [active, setActive] = useState(navTabs[0].id)
@@ -13,9 +14,13 @@ function MainPage() {
       <main className="main-content">
         <h1>{activeTab.label}</h1>
         <PixelPanel className="main-panel">
-          <div className="content-placeholder">
-            <p>MAIN PAGE CONTENT</p>
-          </div>
+          {activeTab.id === 'workouts' ? (
+            <WorkoutsTab />
+          ) : (
+            <div className="content-placeholder">
+              <p>MAIN PAGE CONTENT</p>
+            </div>
+          )}
         </PixelPanel>
       </main>
     </div>
