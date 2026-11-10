@@ -19,13 +19,12 @@ public class Workout {
     }
 
     public void addExercise(Exercise exercise) {
-        // TODO
+        exercises.add(exercise);
     }
 
     /** Returns true if an exercise was removed. */
     public boolean removeExercise(String exerciseName) {
-        // TODO
-        return false;
+        return exercises.removeIf(exercise -> exerciseName.equalsIgnoreCase(exercise.getName()));
     }
 
     public String getWorkoutId() { return workoutId; }

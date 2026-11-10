@@ -1,53 +1,45 @@
 package com.bitfit.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.util.HashMap;
+import java.util.Map;
 
-/** A user's workout plan: the workouts they plan to do toward a goal. */
+/**
+ * The workout half of a {@link WeeklyPlan}: a template that repeats every week, with one
+ * workout per day. A day with no workout is a rest day.
+ *
+ * Days are stored by name ("MONDAY" ... "SUNDAY") because Firestore map keys must be strings.
+ */
 public class WorkoutPlan {
 
-    private String planId;
-    private String accountId;
     private FitnessGoal goal;
-    private List<Workout> workouts = new ArrayList<>();
-    private List<String> completedWorkoutIds = new ArrayList<>();
+    private Map<String, Workout> days = new HashMap<>();
 
     public WorkoutPlan() {
     }
 
-    public WorkoutPlan(String planId, String accountId, FitnessGoal goal) {
-        this.planId = planId;
-        this.accountId = accountId;
+    public WorkoutPlan(FitnessGoal goal) {
         this.goal = goal;
     }
 
-    public void addWorkout(Workout workout) {
-        // TODO
+    /** Sets or replaces the workout for a day. */
+    public void setDay(DayOfWeek day, Workout workout) {
+        days.put(day.name(), workout);
     }
 
-    /** Returns true if a workout was removed. */
-    public boolean removeWorkout(String workoutId) {
-        // TODO
-        return false;
+    /** Makes the day a rest day. Returns true if a workout was removed. */
+    public boolean clearDay(DayOfWeek day) {
+        return days.remove(day.name()) != null;
     }
 
-    /** Marks a workout in this plan as done. */
-    public void completeWorkout(String workoutId) {
-        // TODO
+    /** The workout planned for a day, or null on a rest day. */
+    public Workout workoutFor(DayOfWeek day) {
+        return days.get(day.name());
     }
-
-    public String getPlanId() { return planId; }
-    public void setPlanId(String planId) { this.planId = planId; }
-
-    public String getAccountId() { return accountId; }
-    public void setAccountId(String accountId) { this.accountId = accountId; }
 
     public FitnessGoal getGoal() { return goal; }
     public void setGoal(FitnessGoal goal) { this.goal = goal; }
 
-    public List<Workout> getWorkouts() { return workouts; }
-    public void setWorkouts(List<Workout> workouts) { this.workouts = workouts; }
-
-    public List<String> getCompletedWorkoutIds() { return completedWorkoutIds; }
-    public void setCompletedWorkoutIds(List<String> completedWorkoutIds) { this.completedWorkoutIds = completedWorkoutIds; }
+    public Map<String, Workout> getDays() { return days; }
+    public void setDays(Map<String, Workout> days) { this.days = days; }
 }
