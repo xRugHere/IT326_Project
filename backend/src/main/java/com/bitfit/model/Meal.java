@@ -21,19 +21,37 @@ public class Meal {
     }
 
     public void addFoodItem(FoodItem item) {
-        // TODO
+        if (item == null) {
+            return;
+        }
+        if (foodItems == null) {
+            foodItems = new ArrayList<>();
+        }
+        foodItems.add(item);
     }
 
     /** Returns true if a food item was removed. */
     public boolean removeFoodItem(String foodName) {
-        // TODO
-        return false;
+        if (foodItems == null || foodName == null) {
+            return false;
+        }
+
+        return foodItems.removeIf(item -> item != null && foodName.equalsIgnoreCase(item.getName()));
     }
 
     /** Total calories of every food in the meal (named "calculate" so Firestore does not store it). */
     public int calculateTotalCalories() {
-        // TODO
-        return 0;
+        if (foodItems == null) {
+            return 0;
+        }
+
+        int total = 0;
+        for (FoodItem item : foodItems) {
+            if (item != null) {
+                total += item.getCalories();
+            }
+        }
+        return total;
     }
 
     public String getMealId() { return mealId; }
@@ -46,5 +64,5 @@ public class Meal {
     public void setMealType(String mealType) { this.mealType = mealType; }
 
     public List<FoodItem> getFoodItems() { return foodItems; }
-    public void setFoodItems(List<FoodItem> foodItems) { this.foodItems = foodItems; }
+    public void setFoodItems(List<FoodItem> foodItems) { this.foodItems = foodItems == null ? new ArrayList<>() : foodItems; }
 }
