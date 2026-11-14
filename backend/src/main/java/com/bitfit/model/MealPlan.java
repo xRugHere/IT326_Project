@@ -23,19 +23,37 @@ public class MealPlan {
     }
 
     public void addMeal(Meal meal) {
-        // TODO
+        if (meal == null) {
+            return;
+        }
+        if (meals == null) {
+            meals = new ArrayList<>();
+        }
+        meals.add(meal);
     }
 
     /** Returns true if a meal was removed. */
     public boolean removeMeal(String mealId) {
-        // TODO
-        return false;
+        if (meals == null || mealId == null) {
+            return false;
+        }
+
+        return meals.removeIf(item -> item != null && mealId.equals(item.getMealId()));
     }
 
     /** Total calories of every meal in the plan. */
     public int calculatePlannedCalories() {
-        // TODO
-        return 0;
+        if (meals == null) {
+            return 0;
+        }
+
+        int total = 0;
+        for (Meal meal : meals) {
+            if (meal != null) {
+                total += meal.calculateTotalCalories();
+            }
+        }
+        return total;
     }
 
     public String getPlanId() { return planId; }
@@ -51,5 +69,5 @@ public class MealPlan {
     public void setDailyCalorieGoal(int dailyCalorieGoal) { this.dailyCalorieGoal = dailyCalorieGoal; }
 
     public List<Meal> getMeals() { return meals; }
-    public void setMeals(List<Meal> meals) { this.meals = meals; }
+    public void setMeals(List<Meal> meals) { this.meals = meals == null ? new ArrayList<>() : meals; }
 }
